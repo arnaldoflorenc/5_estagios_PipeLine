@@ -1,0 +1,12 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+PACKAGE FULLADDER_PACKAGE IS
+COMPONENT FULLADDER
+
+PORT ( x, y, Cin : IN STD_LOGIC;
+		 s , Cout : OUT STD_LOGIC);
+
+END COMPONENT;
+
+END FULLADDER_PACKAGE;
