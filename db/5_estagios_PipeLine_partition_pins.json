@@ -1,0 +1,261 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "reg_out1[0]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[2]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[3]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[4]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[5]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[6]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[7]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[8]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[9]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[10]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[11]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[12]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[13]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[14]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out1[15]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[3]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[4]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[5]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[6]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[7]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[8]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[9]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[10]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[11]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[12]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[13]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[14]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_out2[15]",
+					"strict" : false
+				},
+				{
+					"name" : "read_reg",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in1[0]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in1[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in1[2]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in1[3]",
+					"strict" : false
+				},
+				{
+					"name" : "clock",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[0]",
+					"strict" : false
+				},
+				{
+					"name" : "write_reg",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[2]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[3]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[4]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[5]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[6]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[7]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[8]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[9]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[10]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[11]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[12]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[13]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[14]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_data[15]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in2[3]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in3[0]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in3[1]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in3[2]",
+					"strict" : false
+				},
+				{
+					"name" : "reg_in3[3]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

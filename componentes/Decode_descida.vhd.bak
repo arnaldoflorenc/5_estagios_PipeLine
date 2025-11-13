@@ -1,6 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 ENTITY Decode_descida IS
 PORT (
@@ -14,13 +13,16 @@ ARCHITECTURE logica OF Decode_descida IS
 BEGIN 
     PROCESS(clock)
     BEGIN
-        IF falling_edge(clock) THEN
-            IF unsigned(data) < 16 THEN
+        PROCESS(clock)
+    BEGIN
+        if falling_edge(clock) then
+            if unsigned(data) < 16 then
                 data_out <= (others => '0');
                 data_out(to_integer(unsigned(data))) <= '1';
-            ELSE
+            else
                 data_out <= (others => '0');
-            END IF;
-        END IF;
+            end if;
+        end if;
     END PROCESS;
+
 END logica;
