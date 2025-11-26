@@ -1,31 +1,28 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.ULA_PACKAGE.all;
+use ieee.numeric_std.all;
 
+use work.instruc_type.all;
 ENTITY ULA IS
-	PORT (x, y : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-			op : IN STD_LOGIC;
-			s : OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
-			Cout: OUT STD_LOGIC
-			);
+	PORT (
+		x, y : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+		intruc_type : IN TIPO_INSTRUCAO;
+		s : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+	);
 END ULA;
 
 ARCHITECTURE LogicFunc OF ULA IS
-SIGNAL sSO, sSU: STD_LOGIC_VECTOR(3 DOWNTO 0);
-SIGNAL C1, C2, Cin: STD_LOGIC;
-	BEGIN
+BEGIN
+contas_process: PROCESS(x, y, intruc_type)
+BEGIN
+	case instruc_type is 
+		when ADD | LW | SW => 
+		s <= extend32(std_logic_vector(x + y));
+		when SUB =>
+		s <= extend32(std_logic_vector(x - y));
+		when others =>
+		s <= (others => '0');
+	end case;
+END PROCESS contas_process;	
 	
-			WITH OP SELECT
-				Cin <= '1' WHEN 1,
-						'0' WHEN OTHERS;
-			
-			-- INSTANCIAMENTO DOS COMPONENTES USADOS PARA A ULA;
-			U_SOM : RIPPLE4_SOM_SUB PORT MAP (X, Y, Cin, sSO, C1, OVERFLOW_SUM);
-			U_SUB : RIPPLE4_SOM_SUB PORT MAP (X, Y, Cin, sSU, C2, OVERFLOW_SUB);
-
-			-- MULPLEXADOR PARA SABER QUAL OPERAÇÃO SERÁ FEITA;
-			WITH op SELECT
-			s <=  sSO WHEN "0100",
-				  sSU WHEN "0101",
-				  "0000"  WHEN OTHERS;
 END LogicFunc;
