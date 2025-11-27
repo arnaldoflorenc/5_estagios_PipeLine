@@ -1,103 +1,257 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE WORK.CPU_PACKAGE.ALL; 
+USE WORK.CPU_PACKAGE.ALL;
 
-ENTITY CPU IS 
-	PORT ( SW : IN STD_LOGIC_VECTOR (17 DOWNTO 0);
-			 CLOCK_50 : IN STD_LOGIC;
-			 KEY  : IN STD_LOGIC_VECTOR  (3 DOWNTO 0);
-			 LEDR : OUT STD_LOGIC_VECTOR (17 DOWNTO 0);
-			 LEDG : OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
-			 HEX0 : OUT STD_LOGIC_VECTOR (0 TO 6);
-			 HEX1 : OUT STD_LOGIC_VECTOR (0 TO 6);
-			 HEX2 : OUT STD_LOGIC_VECTOR (0 TO 6);
-			 HEX3 : OUT STD_LOGIC_VECTOR (0 TO 6);
-			 HEX5 : OUT STD_LOGIC_VECTOR (0 TO 6);
-			 HEX7 : OUT STD_LOGIC_VECTOR (0 TO 6);
-			 DONE : OUT STD_LOGIC
-	);
+ENTITY CPU IS
+    PORT (
+        CLOCK_50 : IN STD_LOGIC;
+        LEDR : OUT STD_LOGIC_VECTOR (17 DOWNTO 0);
+        LEDG : OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
+        HEX0 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX1 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX2 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX3 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX4 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX5 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX6 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        HEX7 : OUT STD_LOGIC_VECTOR (0 TO 6);
+        DONE : OUT STD_LOGIC
+    );
 END CPU;
 
 ARCHITECTURE LOGICFUNC OF CPU IS
+    -- Sinais intermediários entre estágios e registradores de pipeline
+    signal pc_if : integer := 0;
+    signal instr_if : INSTRUCAO;
+    signal stall_ifid : std_logic := '0';
 
--- SINAIS USADOS NA CPU INTEIRA;
-SIGNAL R1IN, R2IN, R3IN, R1OUT, R2OUT, R3OUT, AIN, GIN, AOUT, GOUT, BIN, BOUT, EXTERN, ENABLE, RESET, AUXIN, AUXOUT, EQU, LST, GRT, CLOCK: STD_LOGIC;
-SIGNAL RDATA1, RDATA2, RDATA3, DATAIN, GDATA, OPCODE, BUSS, RESULT, REG1, REG2, REG3, REGA, OUTG, REGB : STD_LOGIC_VECTOR (3 DOWNTO 0);
-SIGNAL RD, RS : STD_LOGIC_VECTOR (1 DOWNTO 0);
+    signal pc_id : integer := 0;
+    signal instr_id : INSTRUCAO;
 
---SINAIS DO CLOCK ARTIFICIAL;
-SIGNAL MAX: INTEGER := 500000;
-SIGNAL HALF: INTEGER := MAX/2;
-SIGNAL CLOCKTICKS: INTEGER RANGE 0 TO MAX;
-SIGNAL CLK: STD_LOGIC;
+    signal instr_idex : INSTRUCAO;
+    signal rs_idex, rt_idex : std_logic_vector(15 downto 0);
+    signal rd_add_idex, rt_add_idex, rs_add_idex : std_logic_vector(3 downto 0);
+    signal signal_ext_idex : std_logic_vector(15 downto 0);
 
-	BEGIN
-	-- INSTANCIAMENTO DA UNIDADE DE CONTROLE;	
-	UNIDADE_CONTROLE : UC PORT MAP(SW => SW, CLOCK => CLOCK, OPCODE => OPCODE, RS => RS, RD => RD, RESET => RESET, R1_IN => R1IN,
-											 R1_OUT => R1OUT, R2_IN => R2IN, R2_OUT => R2OUT, R3_IN => R3IN, R3_OUT => R3OUT, 
-											 AIN => AIN, AOUT => AOUT, GIN => GIN, GOUT => GOUT, BIN => BIN, BOUT => BOUT, EXTERN => EXTERN, DONE => DONE, ENABLE => ENABLE
-											);
-	
-	-- BUFFERS 
-	BUFFERWBEX : BUFFERS PORT MAP (DATAIN, EXTERN, BUSS);
-	BUFFERMEX : BUFFERS PORT MAP (REG1,   R1OUT,  BUSS);
-	BUFFEREX : BUFFERS PORT MAP (REG2,   R2OUT,  BUSS);
-	BUFFER3WBMEM : BUFFERS PORT MAP (REG3,   R3OUT,  BUSS);
-	BUFFERGMEM : BUFFERS PORT MAP (RESULT,  GOUT,  BUSS);
-	BUFFERWB : BUFFERS PORT MAP (REGA,     AOUT, BUSS);
-	
-	
-	-- REGISTRADORES;
-	R1 : REG4 PORT MAP (BUSS, RESET, CLOCK, R1IN, REG1);
-	R2 : REG4 PORT MAP (BUSS, RESET, CLOCK, R2IN, REG2);
-	R3 : REG4 PORT MAP (BUSS, RESET, CLOCK, R3IN, REG3);
-	
-	-- REGISTRADORES DE OPERAÇÃO;
-	A  : REG4 PORT MAP (BUSS, RESET, CLOCK, AIN, REGA);
-	B  : REG4 PORT MAP (BUSS, RESET, CLOCK, BIN, REGB);
-	G  : REG4 PORT MAP (RESULT, RESET, CLOCK, GIN, OUTG);
-		
-	-- ULA E COMPARADOR;
-	U  : ULA  PORT MAP (REGA, REGB, OPCODE, RESULT, LEDG(0), LEDG(2), LEDG (3), LEDG (5), LEDG (4));
+    signal instr_ex : INSTRUCAO;
+    signal rs_ex, rt_ex : std_logic_vector(15 downto 0);
+    signal rd_add_ex, rt_add_ex, rs_add_ex : std_logic_vector(3 downto 0);
+    signal signal_ext_ex : std_logic_vector(15 downto 0);
 
-	-- SWITCHS PARA ATRIBUIÇÃO DE VALORES
-	DataIN <= SW (13 DOWNTO 10);
-	OPCODE <= SW (7 DOWNTO 4);
-	ENABLE <= NOT KEY (3);
-	RESET  <= NOT KEY (0);
-	RD <= SW (1 DOWNTO 0);
-	RS <= SW (3 DOWNTO 2);
-	
-	-- LEDS DAS OPERAÇÕES;
-	LEDR (13 DOWNTO 10) <= NOT DATAIN;
-	LEDR (7 DOWNTO 4)   <= NOT OPCODE;
-	LEDR (3 DOWNTO 2)   <= NOT RS;
-	LEDR (1 DOWNTO 0)   <= NOT RD;
-	LEDG (8) <= DONE;
+    signal alu_exmem : std_logic_vector(15 downto 0);
+    signal rt_exmem : std_logic_vector(15 downto 0);
+    signal imediato_exmem : std_logic_vector(15 downto 0);
+    signal regdst_exmem : std_logic_vector(3 downto 0);
 
-	-- FAZ CLOCK ARTIFICIAL PARA O PROGRAMA, O CLOCK ARTIFICIAL É MAIS LENTO QUE O DA PLACA, CAUSANDO MENOS ERROS;
-	ClockDivide: PROCESS
-	BEGIN
-		WAIT UNTIL CLOCK_50' EVENT AND CLOCK_50 ='1';
-		IF CLOCKTICKS < MAX THEN
-			CLOCKTICKS <= CLOCKTICKS + 1;
-		ELSE
-			CLOCKTICKS <= 0;
-		END IF;
-		IF CLOCKTICKS < HALF THEN
-			CLOCK <= '0';
-		ELSE
-			CLOCK <= '1';
-		END IF;
-	END PROCESS;
-	
-	-- DISPLAY DA PLACA UTILIZADOS PARA A VIZUALIZAÇÃO DOS VALORES;
-	D0 : Display PORT MAP (REG1, HEX3);
-	D1 : Display PORT MAP (REG2, HEX2);
-	D2 : Display PORT MAP (REG3, HEX1);
-	D3 : Display PORT MAP (DATAIN, HEX5);
-	D4 : Display PORT MAP (OUTG, HEX7);
-	D5 : Display PORT MAP (OPCODE, HEX0);
+    signal alu_mem : std_logic_vector(15 downto 0);
+    signal rt_mem : std_logic_vector(15 downto 0);
+    signal imediato_mem : std_logic_vector(15 downto 0);
+    signal regdst_mem : std_logic_vector(3 downto 0);
 
-	
+    signal data_read_memwb : std_logic_vector(15 downto 0);
+    signal imediato_memwb : std_logic_vector(15 downto 0);
+    signal address_memwb : std_logic_vector(15 downto 0);
+    signal regdst_memwb : std_logic_vector(3 downto 0);
+
+    signal wb_data : std_logic_vector(15 downto 0);
+
+    -- Sinais para estágios
+    signal instr_decode_out : INSTRUCAO;
+    signal writeback_instruction : INSTRUCAO;
+    signal writeback_data : std_logic_vector(15 downto 0);
+    signal val_a, val_b : std_logic_vector(7 downto 0);
+    signal i_signal_extend : std_logic_vector(15 downto 0);
+    signal reg_file_out : Banco_regs_type;
+    signal write_reg, reset_reg : std_logic := '0';
+    signal stall_in, stall_out : std_logic := '0';
+    signal opcode_out : std_logic_vector(3 downto 0);
+
+    signal ula_result : std_logic_vector(15 downto 0);
+    signal signal_extend_ex : std_logic_vector(15 downto 0);
+    signal instrucao_out_ex : INSTRUCAO;
+    signal B_out_ex : std_logic_vector(15 downto 0);
+    signal reg_dst_ex : std_logic_vector(3 downto 0);
+
+    signal mem_read_data : std_logic_vector(15 downto 0);
+    signal ula_result_mem : std_logic_vector(15 downto 0);
+    signal reg_dst_mem : std_logic_vector(3 downto 0);
+    signal instruction_out_mem : INSTRUCAO;
+
+    signal reg_dst_wb : std_logic_vector(3 downto 0);
+
+    -- Sinais de controle da UC
+    signal reg_write : std_logic;
+    signal mem_read  : std_logic;
+    signal mem_write : std_logic;
+    signal alu_src   : std_logic;
+    signal reg_dst   : std_logic;
+    signal branch    : std_logic;
+
+BEGIN
+    -- Instância da UC
+    UC_inst : UC
+        PORT MAP (
+            clk       => CLOCK_50,
+            reset     => '0',
+            instr     => instr_id, 
+            reg_write => reg_write,
+            mem_read  => mem_read,
+            mem_write => mem_write,
+            alu_src   => alu_src,
+            reg_dst   => reg_dst,
+            branch    => branch
+        );
+
+    -- Estágio IF
+    estagio_fetch_inst : estagio_fetch
+        PORT MAP (
+            clk => CLOCK_50,
+            reset => '0',
+            stall => stall_ifid,
+            intrucao_out => instr_if,
+            PC => open,
+            mem_addr => open,
+            mem_le => open,
+            mem_data_out => (others => '0')
+        );
+
+    --IF/ID
+    IF_ID_inst : IF_ID
+        PORT MAP (
+            clock => CLOCK_50,
+            stall => stall_ifid,
+            pc_in => pc_if,
+            pc_out => pc_id,
+            instr_in => instr_if,
+            instr_out => instr_id
+        );
+
+    --Estágio Decode
+    estagio_decode_inst : estagio_decode
+        PORT MAP (
+            clk => CLOCK_50,
+            reset => '0',
+            intrucao_in => instr_id,
+            instruction_out => instr_decode_out,
+            writeback_instruction => writeback_instruction,
+            writeback_data => writeback_data,
+            val_a => val_a,
+            val_b => val_b,
+            i_signal_extend => i_signal_extend,
+            PC_out => open,
+            reg_file_out => reg_file_out,
+            write_reg => reg_write, -- <- controle da UC
+            reset_reg => reset_reg,
+            stall_in => stall_in,
+            stall_out => stall_out,
+            opcode_out => opcode_out
+        );
+
+    --ID/EX
+    ID_EX_inst : ID_EX
+        PORT MAP (
+            clock => CLOCK_50,
+            stall => stall_out,
+            instr_in => instr_decode_out,
+            instr_out => instr_idex,
+            rs_in => val_a,
+            rs_out => rs_idex,
+            rt_in => val_b,
+            rt_out => rt_idex,
+            rd_add_in => (others => '0'),
+            rd_add_out => rd_add_idex,
+            rt_add_in => (others => '0'),
+            rt_add_out => rt_add_idex,
+            rs_add_in => (others => '0'),
+            rs_add_out => rs_add_idex,
+            signal_ext_in => i_signal_extend,
+            signal_ext_out => signal_ext_idex
+        );
+
+    --Estágio EX
+    Exec_inst : Exec
+        PORT MAP (
+            clk => CLOCK_50,
+            reset => '0',
+            instrucao_in => instr_idex,
+            A => rs_idex,
+            B => rt_idex,
+            ula_result => ula_result,
+            signal_extend => signal_extend_ex,
+            instrucao_out => instrucao_out_ex,
+            B_out => B_out_ex,
+            reg_dst => reg_dst_ex
+        );
+
+    --EX/MEM
+    EX_MEM_inst : EX_MEM
+        PORT MAP (
+            clock => CLOCK_50,
+            alu_in => ula_result,
+            alu_out => alu_exmem,
+            rt_in => B_out_ex,
+            rt_out => rt_exmem,
+            imediato_in => signal_extend_ex,
+            imediato_out => imediato_exmem,
+            regDST_in => reg_dst_ex,
+            regDST_out => regdst_exmem
+        );
+
+    --Estágio MEM
+    estagio_memoria_inst : estagio_memoria
+        PORT MAP (
+            clk => CLOCK_50,
+            reset => '0',
+            instruction_in => instrucao_out_ex,
+            ula_result_in => alu_exmem,
+            escrebe_data_in => rt_exmem,
+            reg_dst_in => regdst_exmem,
+            mem_read_data_out => mem_read_data,
+            ula_result_out => ula_result_mem,
+            reg_dst_out => reg_dst_mem,
+            instruction_out => instruction_out_mem
+            -- Use mem_read/mem_write se necessário dentro do componente
+        );
+
+    --MEM/WB
+    MEM_WB_inst : MEM_WB
+        PORT MAP (
+            clock => CLOCK_50,
+            data_read_in => mem_read_data,
+            data_read_out => data_read_memwb,
+            imediato_in => imediato_exmem,
+            imediato_out => imediato_memwb,
+            address_in => ula_result_mem,
+            address_out => address_memwb,
+            regDST_in => reg_dst_mem,
+            regDST_out => regdst_memwb
+        );
+
+    --Estágio WB
+    estagio_WB_inst : estagio_WB
+        PORT MAP (
+            clk => CLOCK_50,
+            reset => '0',
+            instruction_in => instruction_out_mem,
+            ula_result_in => address_memwb,
+            mem_read_data_in => data_read_memwb,
+            reg_dst_in => regdst_memwb,
+            reg_dst_out => reg_dst_wb,
+            writeback_instruction => writeback_instruction,
+            writeback_data => writeback_data
+        );
+
+    --Saídas
+    LEDR <= writeback_data(17 downto 0);
+    LEDG <= writeback_data(8 downto 0);
+    HEX0 <= (others => '0');
+    HEX1 <= (others => '0');
+    HEX2 <= (others => '0');
+    HEX3 <= (others => '0');
+    HEX4 <= (others => '0');
+    HEX5 <= (others => '0');
+    HEX6 <= (others => '0');
+    HEX7 <= (others => '0');
+    DONE <= '0';
+
 END LOGICFUNC;

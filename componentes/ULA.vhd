@@ -17,9 +17,9 @@ contas_process: PROCESS(x, y, intruc_type)
 BEGIN
 	case instruc_type is 
 		when ADD | LW | SW => 
-		s <= extend32(std_logic_vector(x + y));
+		s <= std_logic_vector(x + y);
 		when SUB =>
-		s <= extend32(std_logic_vector(x - y));
+		s <= std_logic_vector(x - y);
 		when others =>
 		s <= (others => '0');
 	end case;

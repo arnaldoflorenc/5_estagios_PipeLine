@@ -21,7 +21,7 @@ end entity estagio_WB;
 
 architecture logica of estagio_WB is
 begin
-    writeback_data <= mem_read_data_in when instruction_in.tipo = LW else ula_result_in;
+    writeback_data <= mem_read_data_in when instruction_in.TIPO_INSTRUCAO = LW else ula_result_in;
     writeback_instruction <= instruction_in;
     reg_dst_out <= reg_dst_in;
 end architecture logica;

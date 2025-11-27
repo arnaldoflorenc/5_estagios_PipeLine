@@ -12,10 +12,11 @@ entity estagio_memoria is
         clk : in std_logic;
         reset : in std_logic;
         instruction_in : in INSTRUCAO;
-        ula_result_in : in std_logic_vector(31 downto 0);
+        ula_result_in : in std_logic_vector(15 downto 0);
         escrebe_data_in : in std_logic_vector(15 downto 0);
         reg_dst_in : in std_logic_vector(3 downto 0);
         mem_read_data_out : out std_logic_vector(15 downto 0);
+        ula_result_out : out std_logic_vector(15 downto 0);
         reg_dst_out : out std_logic_vector(3 downto 0);
         instruction_out : out INSTRUCAO
     );
@@ -40,6 +41,7 @@ begin
 
     -- Propagar a instrução para a saída
     instruction_out <= instruction_in;
+    ula_result_out <= ula_result_in;
     reg_dst_out <= reg_dst_in;
 
 end architecture logica;

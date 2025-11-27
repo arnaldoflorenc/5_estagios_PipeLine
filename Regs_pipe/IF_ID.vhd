@@ -16,12 +16,12 @@ END IF_ID;
 
 ARCHITECTURE logica OF IF_ID IS
     signal pc_intermediario : integer;
-    signal instr_intermediario : integer;
+    signal instr_intermediario : INSTRUCAO;
 BEGIN
     pc_out <= pc_intermediario;
     instr_out <= instr_intermediario;
 
-    if_id_process : PROCESS(clock, stall, pc_in, instr_in)
+    if_id_process : PROCESS(clock)
     BEGIN
         if rising_edge(clock) then
             if stall = '0' then

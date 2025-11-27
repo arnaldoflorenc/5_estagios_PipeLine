@@ -23,7 +23,7 @@ end entity Exec;
 architecture logica of Exec is
     signal in_A : std_logic_vector(15 downto 0);
     signal in_B : std_logic_vector(15 downto 0);
-    signal result : std_logic_vector(31 downto 0);
+    signal result : std_logic_vector(15 downto 0);
 begin
     alu: port map(
         x => in_A,
@@ -31,7 +31,7 @@ begin
         intruc_type => instrucao_in.TIPO_INSTRUCAO,
         s => result(31 downto 0)
     );
-    ula_result <= result(31 downto 0);
+    ula_result <= result(15 downto 0);
     B_out <= B;
     reg_dst <= instrucao_in.rd_vet;
     

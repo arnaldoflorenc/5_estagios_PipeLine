@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-USE work.instru_type.all;
+USE work.instruc_type.all;
 
 entity ID_EX is
     port(
@@ -52,7 +52,6 @@ begin
                 rt_add_intermediario <= rt_add_in;
                 rs_add_intermediario <= rs_add_in;
                 signal_ext_intermediario <= signal_ext_in;
-                reg_data_intermediario <= reg_data_in;
             end if;
         end if;
     end process id_ex_process;

@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-USE work.instru_type.all;
+USE work.instruc_type.all;
 
 entity EX_MEM is
     port(
@@ -22,12 +22,12 @@ architecture logica of EX_MEM is
     signal rt_intermediario : std_logic_vector(15 downto 0);
     signal imediato_intermediario : std_logic_vector(15 downto 0);
     signal regDST_intermediario : std_logic_vector(3 downto 0);
-    begin
+begin
     alu_out <= alu_intermediario;
     rt_out <= rt_intermediario;
     imediato_out <= imediato_intermediario;
     regDST_out <= regDST_intermediario;
-    ex_mem_process : process(clock, alu_in, rt_in, imediato_in, regDST_in)
+    ex_mem_process : process(clock)
     begin
         if rising_edge(clock) then
             alu_intermediario <= alu_in;
@@ -36,4 +36,4 @@ architecture logica of EX_MEM is
             regDST_intermediario <= regDST_in;
         end if;
     end process ex_mem_process;
-end logic1a;
+end logica;
