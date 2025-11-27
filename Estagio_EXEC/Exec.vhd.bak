@@ -4,7 +4,6 @@ use ieee.numeric_std.all;
 
 -- Adicionar o tipo de instrução
 use work.instruc_type.all;
-use work.cpu_package.all;
 
 entity Exec is
     port(
@@ -17,7 +16,7 @@ entity Exec is
         signal_extend : out std_logic_vector(15 downto 0);
         instrucao_out : out INSTRUCAO;
         B_out : out std_logic_vector(15 downto 0);
-        reg_dst : out std_logic_vector(3 downto 0)
+        reg_dst : out std_logic_vector(3 downto 0);
     );
 end entity Exec;
 
@@ -26,11 +25,11 @@ architecture logica of Exec is
     signal in_B : std_logic_vector(15 downto 0);
     signal result : std_logic_vector(15 downto 0);
 begin
-    alu: ULA port map(
+    alu: port map(
         x => in_A,
         y => in_B,
-        intruc_type => instrucao_in.tipo,
-        s => result(15 downto 0)
+        intruc_type => instrucao_in.TIPO_INSTRUCAO,
+        s => result(31 downto 0)
     );
     ula_result <= result(15 downto 0);
     B_out <= B;
@@ -38,7 +37,7 @@ begin
     
     operacoes: process(A, B, instrucao_in)
     begin
-        case instrucao_in.tipo is
+        case instrucao_in.TIPO_INSTRUCAO is
             when ADD | SUB =>
                 in_A <= A;
                 in_B <= B;
@@ -46,8 +45,7 @@ begin
             when LW | SW =>
                 in_A <= A;
                 in_B <= (others => '0');
-                -- Corrigir atribuição: extender imediato_vet para 16 bits
-                signal_extend <= (11 downto 0 => '0') & instrucao_in.imediato_vet;
+                signal_extend <= signal_extend(instrucao_in.imediato_vet);
             when others =>
                 in_A <= (others => '0');
                 in_B <= (others => '0');

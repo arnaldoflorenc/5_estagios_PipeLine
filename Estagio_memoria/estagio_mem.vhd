@@ -25,15 +25,21 @@ end entity estagio_memoria;
 architecture logica of estagio_memoria is
     -- Sinal interno para o endereço da memória
     signal address : std_logic_vector(15 downto 0);
-
+    -- Sinais auxiliares para controle de memória
+    signal memRead_sig  : std_logic;
+    signal memWrite_sig : std_logic;
 begin
+    -- Controle de leitura e escrita de memória
+    memRead_sig  <= '1' when instruction_in.tipo = LW else '0';
+    memWrite_sig <= '1' when instruction_in.tipo = SW else '0';
+
     -- Instanciar o componente MEM
     mem_inst: entity work.MEM
         port map (
             clk       => clk,
             rst       => reset,
-            memRead   => std_logic(instruction_in.tipo = LW),  -- Sinal de leitura (LW)
-            memWrite  => std_logic(instruction_in.tipo = SW),  -- Sinal de escrita (SW)
+            memRead   => memRead_sig,
+            memWrite  => memWrite_sig,
             address   => ula_result_in(15 downto 0),           
             writeData => escrebe_data_in,                     
             readData  => mem_read_data_out                   

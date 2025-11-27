@@ -4,7 +4,6 @@ use ieee.numeric_std.all;
 
 -- Adicionar o tipo de instrução
 use work.instruc_type.all;
-use work.tipos.all;
 
 entity estagio_decode is
     generic(
@@ -13,15 +12,15 @@ entity estagio_decode is
     port(
         clk : in std_logic;
         reset : in std_logic;
-        instrucao_in : in INSTRUCAO; 
+        intrucao_in : in INSTRUCAO; 
         instruction_out : out INSTRUCAO; 
-        writeback_instruction : in std_logic_vector(15 downto 0); 
+        writeback_instruction : in INSTRUCAO; 
         writeback_data : in std_logic_vector(15 downto 0);
-        val_a : out std_logic_vector(15 downto 0);
-        val_b : out std_logic_vector(15 downto 0);
+        val_a : out std_logic_vector(7 downto 0);
+        val_b : out std_logic_vector(7 downto 0);
         i_signal_extend : out std_logic_vector(15 downto 0);
         PC_out : out integer;
-        reg_file_out : out array_reg;
+        reg_file_out : out Banco_regs_type;
         write_reg : in std_logic; -- Sinal de escrita
         reset_reg : in std_logic;   
         stall_in : in std_logic;
@@ -42,20 +41,24 @@ architecture logica of estagio_decode is
     end function;
 
     signal stall_signal : std_logic := '0';
-    signal reg_dest, reg_src1, reg_src2 : std_logic_vector(3 downto 0); 
-    signal imediato : std_logic_vector(7 downto 0);
+
+    -- Sinais internos para decodificação
+    signal opcode : std_logic_vector(3 downto 0); -- Ajustado para 4 bits
+    signal reg_dest, reg_src1, reg_src2 : std_logic_vector(3 downto 0); -- Ajustado para 4 bits
+    signal imediato : std_logic_vector(7 downto 0); -- Ajustado para 8 bits
 
     -- Sinais para leitura e escrita dos registradores
-    signal reg_out1, reg_out2 : INSTRUCAO; -- Corrigido tipo para INSTRUCAO
+    signal reg_out1, reg_out2 : std_logic_vector(15 downto 0);
 
 begin
     -- Decodificação da instrução
     process(instrucao_in)
     begin
-        reg_src1 <= instrucao_in.rs_vet; -- Usar o campo reg_src1 do tipo de instrução
-        reg_src2 <= instrucao_in.rt_vet; -- Usar o campo reg_src2 do tipo de instrução
-        reg_dest <= instrucao_in.rd_vet; -- Usar o campo reg_dest do tipo de instrução
-        imediato <= instrucao_in.imediato_vet; -- Usar o campo imediato do tipo de instrução
+        opcode   <= instrucao_in.opcode; -- Usar o campo opcode do tipo de instrução
+        reg_src1 <= instrucao_in.reg_src1; -- Usar o campo reg_src1 do tipo de instrução
+        reg_src2 <= instrucao_in.reg_src2; -- Usar o campo reg_src2 do tipo de instrução
+        reg_dest <= instrucao_in.reg_dest; -- Usar o campo reg_dest do tipo de instrução
+        imediato <= instrucao_in.imediato; -- Usar o campo imediato do tipo de instrução
     end process;
 
     -- Leitura e escrita nos registradores
@@ -68,8 +71,8 @@ begin
             reg_in1   => reg_src1,
             reg_in2   => reg_src2,
             reg_in3   => reg_dest,
-            reg_out1  => reg_out1, -- Agora tipo INSTRUCAO
-            reg_out2  => reg_out2, -- Agora tipo INSTRUCAO
+            reg_out1  => reg_out1,
+            reg_out2  => reg_out2,
             reg_file_out => reg_file_out
         );
 
@@ -89,8 +92,9 @@ begin
     stall_out <= stall_signal;
 
     -- Saídas
-    val_a <= reg_out1.intrucao_vet(15 downto 0); -- Parte baixa do registrador 1
-    val_b <= reg_out2.intrucao_vet(15 downto 0); -- Parte baixa do registrador 2
+    val_a <= reg_out1(7 downto 0); -- Parte baixa do registrador 1
+    val_b <= reg_out2(7 downto 0); -- Parte baixa do registrador 2
+    opcode_out <= opcode;
     PC_out <= 0; -- Atualizar com o valor correto do PC, se necessário
     instruction_out <= instrucao_in;
 

@@ -7,34 +7,37 @@ use componentes.Buffers.Buffers;
 use componentes.Decode_subida.Decode_subida;
 use componentes.Decode_descida.Decode_descida;
 use componentes.REG4.REG4;
-use componentes.tipos.array_reg;
+use componentes.tipos.all;
 
-use work.tipos.all;
+use work.instruc_type.all;
+
+
 
 ENTITY BANCO_REGS IS
-    PORT (
-        read_reg, write_reg : IN STD_LOGIC;
-        clock               : IN STD_LOGIC;
-        reg_data            : IN INSTRUCAO; -- Dados a serem escritos
-        reg_in1, reg_in2, reg_in3 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-        reg_out1, reg_out2  : OUT INSTRUCAO; -- Dados lidos
-        reg_file_out       : OUT Banco_regs_type
+PORT (
+    read_reg, write_reg : IN STD_LOGIC;
+    clock               : IN STD_LOGIC;
+    reg_data            : IN std_logic_vector(15 downto 0);
+    reg_in1, reg_in2, reg_in3 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+    reg_out1, reg_out2  : OUT INSTRUCAO; -- Dados lidos
+    reg_file_out       : OUT array_reg
     );
-END BANCO_REGS;
+    END BANCO_REGS;
+
 
 ARCHITECTURE logica OF BANCO_REGS IS
-    --Sinais de barramento
-    signal barramentoRS, barramentoRT : INSTRUCAO;
+    -- Sinais de barramento
+    signal barramentoRS, barramentoRT : std_logic_vector(15 downto 0); -- Corrigido tipo
     
-    --Sinais de reg
-    signal regs : array_reg;
+    -- Sinais de reg
+    signal regs : array_reg; -- array_reg = array (0 to 15) of std_logic_vector(15 downto 0)
     
-    --Sinais de controle
+    -- Sinais de controle
     signal write_enable   : STD_LOGIC_VECTOR(15 DOWNTO 0);
     signal read_enable_rs : STD_LOGIC_VECTOR(15 DOWNTO 0);
     signal read_enable_rt : STD_LOGIC_VECTOR(15 DOWNTO 0);
     
-    --Saida dos decodes de leitura e escrita
+    -- Saida dos decodes de leitura e escrita
     signal decoded_rd, decoded_rs, decoded_rt : STD_LOGIC_VECTOR(15 DOWNTO 0);
 
 BEGIN
@@ -70,14 +73,14 @@ BEGIN
         end loop;
     end process;
 
-    --Instanciação dos 16 registradores
+    -- Instanciação dos 16 registradores
     gen_regs: for i in 0 to 15 generate
         reg_inst: entity work.REG4
             port map (
-                D      => reg_data, -- Dados a serem escritos
+                D      => reg_data, -- std_logic_vector(15 downto 0)
                 RESET  => '0',
                 CLOCK  => clock,
-                ENABLE => write_enable(i), -- Habilita escrita no registrador correto
+                ENABLE => write_enable(i),
                 Q      => regs(i)
             );
     end generate;
@@ -101,8 +104,9 @@ BEGIN
             );
     end generate;
 
-    reg_out1 <= barramentoRS;
-    reg_out2 <= barramentoRT;
+    -- Converter barramento para INSTRUCAO na saída
+    reg_out1 <= getInstrucao(barramentoRS);
+    reg_out2 <= getInstrucao(barramentoRT);
     reg_file_out <= regs;
 
 END logica;

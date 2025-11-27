@@ -1,9 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.instruc_type.all;
-
-use work.tipos.all;
-
 
 PACKAGE CPU_PACKAGE IS
 	COMPONENT REG4 IS
@@ -83,11 +79,11 @@ PACKAGE CPU_PACKAGE IS
 			instruction_out : OUT INSTRUCAO;
 			writeback_instruction : IN INSTRUCAO;
 			writeback_data : IN std_logic_vector(15 downto 0);
-			val_a : OUT std_logic_vector(15 downto 0);
-			val_b : OUT std_logic_vector(15 downto 0);
+			val_a : OUT std_logic_vector(7 downto 0);
+			val_b : OUT std_logic_vector(7 downto 0);
 			i_signal_extend : OUT std_logic_vector(15 downto 0);
 			PC_out : OUT integer;
-			reg_file_out : OUT array_reg;
+			reg_file_out : OUT Banco_regs_type;
 			write_reg : IN std_logic;
 			reset_reg : IN std_logic;
 			stall_in : IN std_logic;

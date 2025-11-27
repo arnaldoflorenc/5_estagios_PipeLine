@@ -11,5 +11,5 @@ end entity shiftleft2;
 
 architecture logica of shiftleft2 is
 begin
-    saida <= sll(entrada, 2);
+    saida <= std_logic_vector( unsigned(entrada) sll 2 );
 end architecture logica;

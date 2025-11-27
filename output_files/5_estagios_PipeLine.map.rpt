@@ -1,5 +1,5 @@
 Analysis & Synthesis report for 5_estagios_PipeLine
-Thu Nov 13 17:25:52 2025
+Thu Nov 27 16:19:38 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -10,29 +10,7 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Port Connectivity Checks: "REG4:\gen_regs:15:reg_inst"
- 10. Port Connectivity Checks: "REG4:\gen_regs:14:reg_inst"
- 11. Port Connectivity Checks: "REG4:\gen_regs:13:reg_inst"
- 12. Port Connectivity Checks: "REG4:\gen_regs:12:reg_inst"
- 13. Port Connectivity Checks: "REG4:\gen_regs:11:reg_inst"
- 14. Port Connectivity Checks: "REG4:\gen_regs:10:reg_inst"
- 15. Port Connectivity Checks: "REG4:\gen_regs:9:reg_inst"
- 16. Port Connectivity Checks: "REG4:\gen_regs:8:reg_inst"
- 17. Port Connectivity Checks: "REG4:\gen_regs:7:reg_inst"
- 18. Port Connectivity Checks: "REG4:\gen_regs:6:reg_inst"
- 19. Port Connectivity Checks: "REG4:\gen_regs:5:reg_inst"
- 20. Port Connectivity Checks: "REG4:\gen_regs:4:reg_inst"
- 21. Port Connectivity Checks: "REG4:\gen_regs:3:reg_inst"
- 22. Port Connectivity Checks: "REG4:\gen_regs:2:reg_inst"
- 23. Port Connectivity Checks: "REG4:\gen_regs:1:reg_inst"
- 24. Port Connectivity Checks: "REG4:\gen_regs:0:reg_inst"
- 25. Post-Synthesis Netlist Statistics for Top Partition
- 26. Elapsed Time Per Partition
- 27. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Messages
 
 
 
@@ -56,27 +34,22 @@ on the Quartus Prime software download page.
 
 
 
-+-----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                      ;
-+---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu Nov 13 17:25:52 2025           ;
-; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
-; Revision Name                   ; 5_estagios_PipeLine                             ;
-; Top-level Entity Name           ; BANCO_REGS                                      ;
-; Family                          ; Cyclone V                                       ;
-; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 304                                             ;
-; Total pins                      ; 63                                              ;
-; Total virtual pins              ; 0                                               ;
-; Total block memory bits         ; 0                                               ;
-; Total DSP Blocks                ; 0                                               ;
-; Total HSSI RX PCSs              ; 0                                               ;
-; Total HSSI PMA RX Deserializers ; 0                                               ;
-; Total HSSI TX PCSs              ; 0                                               ;
-; Total HSSI PMA TX Serializers   ; 0                                               ;
-; Total PLLs                      ; 0                                               ;
-; Total DLLs                      ; 0                                               ;
-+---------------------------------+-------------------------------------------------+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++-----------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Thu Nov 27 16:19:38 2025               ;
+; Quartus Prime Version       ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
+; Revision Name               ; 5_estagios_PipeLine                             ;
+; Top-level Entity Name       ; CPU                                             ;
+; Family                      ; Cyclone V                                       ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                       ;
+; Total registers             ; N/A until Partition Merge                       ;
+; Total pins                  ; N/A until Partition Merge                       ;
+; Total virtual pins          ; N/A until Partition Merge                       ;
+; Total block memory bits     ; N/A until Partition Merge                       ;
+; Total PLLs                  ; N/A until Partition Merge                       ;
+; Total DLLs                  ; N/A until Partition Merge                       ;
++-----------------------------+-------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------+
@@ -85,7 +58,7 @@ on the Quartus Prime software download page.
 ; Option                                                                          ; Setting            ; Default Value       ;
 +---------------------------------------------------------------------------------+--------------------+---------------------+
 ; Device                                                                          ; 5CGXFC7C7F23C8     ;                     ;
-; Top-level entity name                                                           ; Banco_regs         ; 5_estagios_PipeLine ;
+; Top-level entity name                                                           ; CPU                ; 5_estagios_PipeLine ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V           ;
 ; Use smart compilation                                                           ; Off                ; Off                 ;
 ; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                  ;
@@ -175,274 +148,11 @@ on the Quartus Prime software download page.
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 6           ;
+; Maximum used               ; 1           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-6         ;   0.0%      ;
 +----------------------------+-------------+
-
-
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                              ;
-+-----------------------------------------------------------------------------------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path                                                                          ; Used in Netlist ; File Type       ; File Name with Absolute Path                                                                              ; Library ;
-+-----------------------------------------------------------------------------------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------------+---------+
-; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/tipos.vhd                   ; yes             ; User VHDL File  ; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/tipos.vhd                   ;         ;
-; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/REG4.vhd                    ; yes             ; User VHDL File  ; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/REG4.vhd                    ;         ;
-; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Decode_subida.vhd           ; yes             ; User VHDL File  ; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Decode_subida.vhd           ;         ;
-; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Decode_descida.vhd          ; yes             ; User VHDL File  ; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Decode_descida.vhd          ;         ;
-; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Buffers.vhd                 ; yes             ; User VHDL File  ; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Buffers.vhd                 ;         ;
-; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd ; yes             ; User VHDL File  ; //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd ;         ;
-+-----------------------------------------------------------------------------------------------------------+-----------------+-----------------+-----------------------------------------------------------------------------------------------------------+---------+
-
-
-+-----------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary               ;
-+---------------------------------------------+-------------+
-; Resource                                    ; Usage       ;
-+---------------------------------------------+-------------+
-; Estimate of Logic utilization (ALMs needed) ; 298         ;
-;                                             ;             ;
-; Combinational ALUT usage for logic          ; 396         ;
-;     -- 7 input functions                    ; 0           ;
-;     -- 6 input functions                    ; 4           ;
-;     -- 5 input functions                    ; 260         ;
-;     -- 4 input functions                    ; 112         ;
-;     -- <=3 input functions                  ; 20          ;
-;                                             ;             ;
-; Dedicated logic registers                   ; 304         ;
-;                                             ;             ;
-; I/O pins                                    ; 63          ;
-;                                             ;             ;
-; Total DSP Blocks                            ; 0           ;
-;                                             ;             ;
-; Maximum fan-out node                        ; clock~input ;
-; Maximum fan-out                             ; 304         ;
-; Total fan-out                               ; 2803        ;
-; Average fan-out                             ; 3.39        ;
-+---------------------------------------------+-------------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                 ;
-+------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------+----------------+--------------+
-; Compilation Hierarchy Node               ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                             ; Entity Name    ; Library Name ;
-+------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------+----------------+--------------+
-; |BANCO_REGS                              ; 396 (20)            ; 304 (0)                   ; 0                 ; 0          ; 63   ; 0            ; |BANCO_REGS                                     ; BANCO_REGS     ; work         ;
-;    |BUFFERS:\gen_buffers_rs:0:buffer_rs| ; 164 (164)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|BUFFERS:\gen_buffers_rs:0:buffer_rs ; BUFFERS        ; work         ;
-;    |BUFFERS:\gen_buffers_rt:0:buffer_rt| ; 164 (164)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|BUFFERS:\gen_buffers_rt:0:buffer_rt ; BUFFERS        ; work         ;
-;    |Decode_descida:dec_read_rs|          ; 16 (16)             ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|Decode_descida:dec_read_rs          ; Decode_descida ; work         ;
-;    |Decode_descida:dec_read_rt|          ; 16 (16)             ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|Decode_descida:dec_read_rt          ; Decode_descida ; work         ;
-;    |Decode_subida:dec_write|             ; 16 (16)             ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|Decode_subida:dec_write             ; Decode_subida  ; work         ;
-;    |REG4:\gen_regs:0:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:0:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:10:reg_inst|          ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:10:reg_inst          ; REG4           ; work         ;
-;    |REG4:\gen_regs:11:reg_inst|          ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:11:reg_inst          ; REG4           ; work         ;
-;    |REG4:\gen_regs:12:reg_inst|          ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:12:reg_inst          ; REG4           ; work         ;
-;    |REG4:\gen_regs:13:reg_inst|          ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:13:reg_inst          ; REG4           ; work         ;
-;    |REG4:\gen_regs:14:reg_inst|          ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:14:reg_inst          ; REG4           ; work         ;
-;    |REG4:\gen_regs:15:reg_inst|          ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:15:reg_inst          ; REG4           ; work         ;
-;    |REG4:\gen_regs:1:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:1:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:2:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:2:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:3:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:3:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:4:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:4:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:5:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:5:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:6:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:6:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:7:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:7:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:8:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:8:reg_inst           ; REG4           ; work         ;
-;    |REG4:\gen_regs:9:reg_inst|           ; 0 (0)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |BANCO_REGS|REG4:\gen_regs:9:reg_inst           ; REG4           ; work         ;
-+------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------+----------------+--------------+
-Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
-
-
-+------------------------------------------------------+
-; General Register Statistics                          ;
-+----------------------------------------------+-------+
-; Statistic                                    ; Value ;
-+----------------------------------------------+-------+
-; Total registers                              ; 304   ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 0     ;
-; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 256   ;
-; Number of registers using Preset             ; 0     ;
-+----------------------------------------------+-------+
-
-
-+--------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:15:reg_inst" ;
-+-------+-------+----------+-----------------------------+
-; Port  ; Type  ; Severity ; Details                     ;
-+-------+-------+----------+-----------------------------+
-; reset ; Input ; Info     ; Stuck at GND                ;
-+-------+-------+----------+-----------------------------+
-
-
-+--------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:14:reg_inst" ;
-+-------+-------+----------+-----------------------------+
-; Port  ; Type  ; Severity ; Details                     ;
-+-------+-------+----------+-----------------------------+
-; reset ; Input ; Info     ; Stuck at GND                ;
-+-------+-------+----------+-----------------------------+
-
-
-+--------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:13:reg_inst" ;
-+-------+-------+----------+-----------------------------+
-; Port  ; Type  ; Severity ; Details                     ;
-+-------+-------+----------+-----------------------------+
-; reset ; Input ; Info     ; Stuck at GND                ;
-+-------+-------+----------+-----------------------------+
-
-
-+--------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:12:reg_inst" ;
-+-------+-------+----------+-----------------------------+
-; Port  ; Type  ; Severity ; Details                     ;
-+-------+-------+----------+-----------------------------+
-; reset ; Input ; Info     ; Stuck at GND                ;
-+-------+-------+----------+-----------------------------+
-
-
-+--------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:11:reg_inst" ;
-+-------+-------+----------+-----------------------------+
-; Port  ; Type  ; Severity ; Details                     ;
-+-------+-------+----------+-----------------------------+
-; reset ; Input ; Info     ; Stuck at GND                ;
-+-------+-------+----------+-----------------------------+
-
-
-+--------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:10:reg_inst" ;
-+-------+-------+----------+-----------------------------+
-; Port  ; Type  ; Severity ; Details                     ;
-+-------+-------+----------+-----------------------------+
-; reset ; Input ; Info     ; Stuck at GND                ;
-+-------+-------+----------+-----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:9:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:8:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:7:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:6:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:5:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:4:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:3:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:2:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:1:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-------------------------------------------------------+
-; Port Connectivity Checks: "REG4:\gen_regs:0:reg_inst" ;
-+-------+-------+----------+----------------------------+
-; Port  ; Type  ; Severity ; Details                    ;
-+-------+-------+----------+----------------------------+
-; reset ; Input ; Info     ; Stuck at GND               ;
-+-------+-------+----------+----------------------------+
-
-
-+-----------------------------------------------------+
-; Post-Synthesis Netlist Statistics for Top Partition ;
-+-----------------------+-----------------------------+
-; Type                  ; Count                       ;
-+-----------------------+-----------------------------+
-; arriav_ff             ; 304                         ;
-;     ENA               ; 256                         ;
-;     plain             ; 48                          ;
-; arriav_io_obuf        ; 32                          ;
-; arriav_lcell_comb     ; 396                         ;
-;     normal            ; 396                         ;
-;         2 data inputs ; 20                          ;
-;         4 data inputs ; 112                         ;
-;         5 data inputs ; 260                         ;
-;         6 data inputs ; 4                           ;
-; boundary_port         ; 63                          ;
-;                       ;                             ;
-; Max LUT depth         ; 3.00                        ;
-; Average LUT depth     ; 2.33                        ;
-+-----------------------+-----------------------------+
-
-
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:00     ;
-+----------------+--------------+
 
 
 +-------------------------------+
@@ -451,13 +161,72 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Thu Nov 13 17:25:37 2025
+    Info: Processing started: Thu Nov 27 16:19:26 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off 5_estagios_PipeLine -c 5_estagios_PipeLine
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file regs_pipe/mem_wb.vhd
+    Info (12022): Found design unit 1: MEM_WB-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/MEM_WB.vhd Line: 20
+    Info (12023): Found entity 1: MEM_WB File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/MEM_WB.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file regs_pipe/if_id.vhd
+    Info (12022): Found design unit 1: IF_ID-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/IF_ID.vhd Line: 17
+    Info (12023): Found entity 1: IF_ID File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/IF_ID.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file regs_pipe/id_ex.vhd
+    Info (12022): Found design unit 1: ID_EX-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/ID_EX.vhd Line: 27
+    Info (12023): Found entity 1: ID_EX File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/ID_EX.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file regs_pipe/ex_mem.vhd
+    Info (12022): Found design unit 1: EX_MEM-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/EX_MEM.vhd Line: 20
+    Info (12023): Found entity 1: EX_MEM File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Regs_pipe/EX_MEM.vhd Line: 6
+Info (12021): Found 1 design units, including 0 entities, in source file packages/cpu_package.vhd
+    Info (12022): Found design unit 1: CPU_PACKAGE File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/packages/CPU_PACKAGE.vhd Line: 8
+Info (12021): Found 2 design units, including 0 entities, in source file instrucao/instrucao.vhd
+    Info (12022): Found design unit 1: instruc_type File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/instrucao/instrucao.vhd Line: 10
+    Info (12022): Found design unit 2: instruc_type-body File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/instrucao/instrucao.vhd Line: 85
+Info (12021): Found 2 design units, including 1 entities, in source file estagio_wb/estagio_wb.vhd
+    Info (12022): Found design unit 1: estagio_WB-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_WB/estagio_WB.vhd Line: 22
+    Info (12023): Found entity 1: estagio_WB File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_WB/estagio_WB.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file estagio_memoria/estagio_mem.vhd
+    Info (12022): Found design unit 1: estagio_memoria-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_memoria/estagio_mem.vhd Line: 25
+    Info (12023): Found entity 1: estagio_memoria File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_memoria/estagio_mem.vhd Line: 7
+Info (12021): Found 2 design units, including 1 entities, in source file estagio_fetch/estagio_fetch.vhd
+    Info (12022): Found design unit 1: estagio_fetch-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_fetch/estagio_fetch.vhd Line: 24
+    Info (12023): Found entity 1: estagio_fetch File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_fetch/estagio_fetch.vhd Line: 7
+Info (12021): Found 2 design units, including 1 entities, in source file estagio_exec/exec.vhd
+    Info (12022): Found design unit 1: Exec-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_EXEC/Exec.vhd Line: 24
+    Info (12023): Found entity 1: Exec File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_EXEC/Exec.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file estagio_decode/estagio_decode.vhd
+    Info (12022): Found design unit 1: estagio_decode-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/estagio_decode.vhd Line: 33
+    Info (12023): Found entity 1: estagio_decode File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/estagio_decode.vhd Line: 9
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/ula.vhd
+    Info (12022): Found design unit 1: ULA-LogicFunc File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/ULA.vhd Line: 14
+    Info (12023): Found entity 1: ULA File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/ULA.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/signalextend.vhd
+    Info (12022): Found design unit 1: signalextend-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/signalextend.vhd Line: 12
+    Info (12023): Found entity 1: signalextend File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/signalextend.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/shiftleft2.vhd
+    Info (12022): Found design unit 1: shiftleft2-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/shiftleft2.vhd Line: 12
+    Info (12023): Found entity 1: shiftleft2 File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/shiftleft2.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/shiftleft1.vhd
+    Info (12022): Found design unit 1: shiftleft1-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/shiftleft1.vhd Line: 11
+    Info (12023): Found entity 1: shiftleft1 File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/shiftleft1.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/mem_instu.vhd
+    Info (12022): Found design unit 1: mem_instu-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/mem_instu.vhd Line: 14
+    Info (12023): Found entity 1: mem_instu File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/mem_instu.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/mem.vhd
+    Info (12022): Found design unit 1: MEM-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/MEM.vhd Line: 17
+    Info (12023): Found entity 1: MEM File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/MEM.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file componentes/display.vhd
+    Info (12022): Found design unit 1: Display-LogicFunc File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Display.vhd Line: 9
+    Info (12023): Found entity 1: Display File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Display.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file uc.vhd
+    Info (12022): Found design unit 1: UC-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/UC.vhd Line: 20
+    Info (12023): Found entity 1: UC File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/UC.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file cpu.vhd
+    Info (12022): Found design unit 1: CPU-LOGICFUNC File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 26
+    Info (12023): Found entity 1: CPU File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 9
 Info (12021): Found 2 design units, including 0 entities, in source file componentes/tipos.vhd
     Info (12022): Found design unit 1: tipos File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/tipos.vhd Line: 4
-    Info (12022): Found design unit 2: tipos-body File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/tipos.vhd Line: 8
+    Info (12022): Found design unit 2: tipos-body File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/tipos.vhd Line: 9
 Info (12021): Found 2 design units, including 1 entities, in source file componentes/reg4.vhd
     Info (12022): Found design unit 1: REG4-LogicFunc File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/REG4.vhd Line: 11
     Info (12023): Found entity 1: REG4 File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/REG4.vhd Line: 4
@@ -471,24 +240,33 @@ Info (12021): Found 2 design units, including 1 entities, in source file compone
     Info (12022): Found design unit 1: BUFFERS-LogicFunc File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Buffers.vhd Line: 11
     Info (12023): Found entity 1: BUFFERS File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/componentes/Buffers.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file estagio_decode/banco_reg/banco_regs.vhd
-    Info (12022): Found design unit 1: BANCO_REGS-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 22
-    Info (12023): Found entity 1: BANCO_REGS File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 12
-Info (12127): Elaborating entity "Banco_regs" for the top level hierarchy
-Info (12128): Elaborating entity "Decode_subida" for hierarchy "Decode_subida:dec_write" File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 39
-Info (12128): Elaborating entity "Decode_descida" for hierarchy "Decode_descida:dec_read_rs" File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 47
-Info (12128): Elaborating entity "REG4" for hierarchy "REG4:\gen_regs:0:reg_inst" File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 72
-Info (12128): Elaborating entity "BUFFERS" for hierarchy "BUFFERS:\gen_buffers_rs:0:buffer_rs" File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 84
-Info (286030): Timing-Driven Synthesis is running
-Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 715 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 31 input pins
-    Info (21059): Implemented 32 output pins
-    Info (21061): Implemented 652 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4963 megabytes
-    Info: Processing ended: Thu Nov 13 17:25:52 2025
-    Info: Elapsed time: 00:00:15
-    Info: Total CPU time (on all processors): 00:00:21
+    Info (12022): Found design unit 1: BANCO_REGS-logica File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 28
+    Info (12023): Found entity 1: BANCO_REGS File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/Estagio_decode/Banco_reg/Banco_regs.vhd Line: 16
+Info (12127): Elaborating entity "CPU" for the top level hierarchy
+Warning (10540): VHDL Signal Declaration warning at CPU.vhd(28): used explicit default value for signal "pc_if" because signal was never assigned a value File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 28
+Warning (10540): VHDL Signal Declaration warning at CPU.vhd(30): used explicit default value for signal "stall_ifid" because signal was never assigned a value File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 30
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(32): object "pc_id" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 32
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(37): object "rd_add_idex" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 37
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(37): object "rt_add_idex" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 37
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(37): object "rs_add_idex" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 37
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(38): object "signal_ext_idex" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 38
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(56): object "imediato_memwb" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 56
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(68): object "reg_file_out" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 68
+Warning (10540): VHDL Signal Declaration warning at CPU.vhd(69): used explicit default value for signal "reset_reg" because signal was never assigned a value File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 69
+Warning (10540): VHDL Signal Declaration warning at CPU.vhd(70): used explicit default value for signal "stall_in" because signal was never assigned a value File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 70
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(71): object "opcode_out" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 71
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(84): object "reg_dst_wb" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 84
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(88): object "mem_read" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 88
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(89): object "mem_write" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 89
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(90): object "alu_src" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 90
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(91): object "reg_dst" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 91
+Warning (10036): Verilog HDL or VHDL warning at CPU.vhd(92): object "branch" assigned a value but never read File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 92
+Error (10344): VHDL expression error at CPU.vhd(249): expression has 16 elements, but must have 18 elements File: //wsl.localhost/Ubuntu-24.04/home/arnal/facul/5_estagios_PipeLine/CPU.vhd Line: 249
+Error (12153): Can't elaborate top-level user hierarchy
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 19 warnings
+    Error: Peak virtual memory: 4880 megabytes
+    Error: Processing ended: Thu Nov 27 16:19:38 2025
+    Error: Elapsed time: 00:00:12
+    Error: Total CPU time (on all processors): 00:00:20
 
 

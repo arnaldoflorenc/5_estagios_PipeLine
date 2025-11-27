@@ -36,7 +36,7 @@ begin
     process(clk)
     begin
         if rising_edge(clk) then
-            data_out <= rom(unsigned(addr(3 downto 0)));
+            data_out <= rom(to_integer(unsigned(addr(3 downto 0))));
         end if;
     end process;
 end architecture logica;

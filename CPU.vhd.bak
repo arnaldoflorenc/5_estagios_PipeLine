@@ -2,10 +2,6 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE WORK.CPU_PACKAGE.ALL;
 
-use work.instruc_type.all;
-use work.tipos.all;
-
-
 ENTITY CPU IS
     PORT (
         CLOCK_50 : IN STD_LOGIC;
@@ -63,9 +59,9 @@ ARCHITECTURE LOGICFUNC OF CPU IS
     signal instr_decode_out : INSTRUCAO;
     signal writeback_instruction : INSTRUCAO;
     signal writeback_data : std_logic_vector(15 downto 0);
-    signal val_a, val_b : std_logic_vector(15 downto 0);
+    signal val_a, val_b : std_logic_vector(7 downto 0);
     signal i_signal_extend : std_logic_vector(15 downto 0);
-    signal reg_file_out : array_reg;
+    signal reg_file_out : Banco_regs_type;
     signal write_reg, reset_reg : std_logic := '0';
     signal stall_in, stall_out : std_logic := '0';
     signal opcode_out : std_logic_vector(3 downto 0);
@@ -158,9 +154,9 @@ BEGIN
             stall => stall_out,
             instr_in => instr_decode_out,
             instr_out => instr_idex,
-            rs_in => val_a, 
+            rs_in => val_a,
             rs_out => rs_idex,
-            rt_in => val_b, 
+            rt_in => val_b,
             rt_out => rt_idex,
             rd_add_in => (others => '0'),
             rd_add_out => rd_add_idex,
@@ -246,7 +242,8 @@ BEGIN
         );
 
     --Saídas
-
+    LEDR <= writeback_data(17 downto 0);
+    LEDG <= writeback_data(8 downto 0);
     HEX0 <= (others => '0');
     HEX1 <= (others => '0');
     HEX2 <= (others => '0');

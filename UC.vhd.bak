@@ -37,25 +37,25 @@ BEGIN
             reg_dst   <= '0';
             branch    <= '0';
 
-            case instr.tipo is
-                when NOP => -- NOP
-                when ADD | SUB => -- ADD/SUB
+            case instr.opcode is
+                when "000" => -- NOP
+                when "011" => -- ADD/SUB
                     reg_write <= '1';
                     reg_dst   <= '1';
                     alu_src   <= '0';
-                when LW => -- LW
+                when "001" => -- LW
                     reg_write <= '1';
                     mem_read  <= '1';
                     alu_src   <= '1';
                     reg_dst   <= '0';
-                when SW => -- SW
+                when "010" => -- SW
                     mem_write <= '1';
                     alu_src   <= '1';
-                when J => -- JMP 
+                when "101" => -- JMP 
                     branch    <= '1';
                 when others =>
                     -- tudo zero
             end case;
         end if;
     end process;
-END logica;
+END LOGICFUNC;
