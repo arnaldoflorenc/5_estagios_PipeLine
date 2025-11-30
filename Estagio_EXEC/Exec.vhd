@@ -2,20 +2,18 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- Adicionar o tipo de instrução
-use work.instruc_type.all;
 use work.cpu_package.all;
 
 entity Exec is
     port(
         clk : in std_logic;
         reset : in std_logic;
-        instrucao_in : in INSTRUCAO;
+        instrucao_in : in std_logic_vector(15 downto 0);
         A : in std_logic_vector(15 downto 0);
         B : in std_logic_vector(15 downto 0);
         ula_result : out std_logic_vector(15 downto 0);
         signal_extend : out std_logic_vector(15 downto 0);
-        instrucao_out : out INSTRUCAO;
+        instrucao_out : out std_logic_vector(15 downto 0);
         B_out : out std_logic_vector(15 downto 0);
         reg_dst : out std_logic_vector(3 downto 0)
     );
@@ -26,34 +24,18 @@ architecture logica of Exec is
     signal in_B : std_logic_vector(15 downto 0);
     signal result : std_logic_vector(15 downto 0);
 begin
-    alu: ULA port map(
-        x => in_A,
-        y => in_B,
-        intruc_type => instrucao_in.tipo,
-        s => result(15 downto 0)
-    );
     ula_result <= result(15 downto 0);
     B_out <= B;
-    reg_dst <= instrucao_in.rd_vet;
+    reg_dst <= instrucao_in(12 downto 9);
     
     operacoes: process(A, B, instrucao_in)
     begin
-        case instrucao_in.tipo is
-            when ADD | SUB =>
-                in_A <= A;
-                in_B <= B;
-                signal_extend <= (others => '0');
-            when LW | SW =>
-                in_A <= A;
-                in_B <= (others => '0');
-                -- Corrigir atribuição: extender imediato_vet para 16 bits
-                signal_extend <= (11 downto 0 => '0') & instrucao_in.imediato_vet;
-            when others =>
-                in_A <= (others => '0');
-                in_B <= (others => '0');
-                signal_extend <= (others => '0');
-        end case;
+        in_A <= A;
+        in_B <= B;
+        signal_extend <= (others => '0');
     end process operacoes;
+    
+    instrucao_out <= instrucao_in;
 end architecture logica;
 
 

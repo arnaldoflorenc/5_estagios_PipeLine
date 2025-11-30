@@ -2,8 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- Adicionar o tipo de instrução
-use work.instruc_type.all;
 use work.tipos.all;
 
 entity estagio_decode is
@@ -13,8 +11,8 @@ entity estagio_decode is
     port(
         clk : in std_logic;
         reset : in std_logic;
-        instrucao_in : in INSTRUCAO; 
-        instruction_out : out INSTRUCAO; 
+        instrucao_in : in std_logic_vector(15 downto 0); 
+        instruction_out : out std_logic_vector(15 downto 0); 
         writeback_instruction : in std_logic_vector(15 downto 0); 
         writeback_data : in std_logic_vector(15 downto 0);
         val_a : out std_logic_vector(15 downto 0);
@@ -46,30 +44,31 @@ architecture logica of estagio_decode is
     signal imediato : std_logic_vector(7 downto 0);
 
     -- Sinais para leitura e escrita dos registradores
-    signal reg_out1, reg_out2 : INSTRUCAO; -- Corrigido tipo para INSTRUCAO
+    signal reg_out1, reg_out2 : std_logic_vector(15 downto 0);
 
 begin
     -- Decodificação da instrução
+    -- RS está em bits 12-9, RT em bits 8-5, RD em bits 4-1
     process(instrucao_in)
     begin
-        reg_src1 <= instrucao_in.rs_vet; -- Usar o campo reg_src1 do tipo de instrução
-        reg_src2 <= instrucao_in.rt_vet; -- Usar o campo reg_src2 do tipo de instrução
-        reg_dest <= instrucao_in.rd_vet; -- Usar o campo reg_dest do tipo de instrução
-        imediato <= instrucao_in.imediato_vet; -- Usar o campo imediato do tipo de instrução
+        reg_src1 <= instrucao_in(12 downto 9); -- RS
+        reg_src2 <= instrucao_in(8 downto 5);  -- RT
+        reg_dest <= instrucao_in(4 downto 1);  -- RD
+        imediato <= instrucao_in(7 downto 0);  -- Imediato (bits 7-0)
     end process;
 
     -- Leitura e escrita nos registradores
     banco_regs_inst: entity work.BANCO_REGS
         port map (
             read_reg  => '1',
-            write_reg => write_reg, -- Conectar o sinal de escrita
+            write_reg => write_reg,
             clock     => clk,
-            reg_data  => writeback_instruction, -- Dados a serem escritos
+            reg_data  => writeback_data,
             reg_in1   => reg_src1,
             reg_in2   => reg_src2,
             reg_in3   => reg_dest,
-            reg_out1  => reg_out1, -- Agora tipo INSTRUCAO
-            reg_out2  => reg_out2, -- Agora tipo INSTRUCAO
+            reg_out1  => reg_out1,
+            reg_out2  => reg_out2,
             reg_file_out => reg_file_out
         );
 
@@ -89,10 +88,9 @@ begin
     stall_out <= stall_signal;
 
     -- Saídas
-    val_a <= reg_out1.intrucao_vet(15 downto 0); -- Parte baixa do registrador 1
-    val_b <= reg_out2.intrucao_vet(15 downto 0); -- Parte baixa do registrador 2
-    PC_out <= 0; -- Atualizar com o valor correto do PC, se necessário
+    val_a <= reg_out1;
+    val_b <= reg_out2;
+    PC_out <= 0;
     instruction_out <= instrucao_in;
 
 end architecture logica;
-

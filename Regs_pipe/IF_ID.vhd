@@ -1,7 +1,6 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-USE work.instruc_type.all;
 
 ENTITY IF_ID IS
     PORT (
@@ -9,14 +8,14 @@ ENTITY IF_ID IS
         stall : IN  STD_LOGIC;
         pc_in  : IN  integer;
         pc_out : OUT integer;
-        instr_in : IN INSTRUCAO;
-        instr_out : OUT INSTRUCAO
+        instr_in : IN std_logic_vector(15 downto 0);
+        instr_out : OUT std_logic_vector(15 downto 0)
     );
 END IF_ID;
 
 ARCHITECTURE logica OF IF_ID IS
     signal pc_intermediario : integer;
-    signal instr_intermediario : INSTRUCAO;
+    signal instr_intermediario : std_logic_vector(15 downto 0);
 BEGIN
     pc_out <= pc_intermediario;
     instr_out <= instr_intermediario;

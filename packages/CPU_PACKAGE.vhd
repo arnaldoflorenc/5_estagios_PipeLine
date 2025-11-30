@@ -1,6 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.instruc_type.all;
 
 use work.tipos.all;
 
@@ -16,8 +15,8 @@ PACKAGE CPU_PACKAGE IS
 	COMPONENT ULA IS 
 		PORT(
 				x, y : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-				intruc_type : IN TIPO_INSTRUCAO;
-				s : OUT STD_LOGIC_VECTOR (15 DOWNTO 0)
+				opcode : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+				s : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 			);
 	END COMPONENT;
 
@@ -51,7 +50,7 @@ PACKAGE CPU_PACKAGE IS
 	COMPONENT UC
 		PORT (	clk      : IN  STD_LOGIC;
         		reset    : IN  STD_LOGIC;
-        		instr    : IN  INSTRUCAO;
+        		instr    : IN  std_logic_vector(15 downto 0);
         		reg_write : OUT STD_LOGIC;
         		mem_read  : OUT STD_LOGIC;
         		mem_write : OUT STD_LOGIC;
@@ -67,7 +66,7 @@ PACKAGE CPU_PACKAGE IS
 			clk : IN std_logic;
 			reset : IN std_logic;
 			stall : IN std_logic;
-			intrucao_out : OUT INSTRUCAO;
+			instrucao_out : OUT std_logic_vector(15 downto 0);
 			PC : OUT std_logic_vector(15 downto 0);
 			mem_addr : OUT std_logic_vector(15 downto 0);
 			mem_le : OUT std_logic;
@@ -79,9 +78,9 @@ PACKAGE CPU_PACKAGE IS
 		PORT (
 			clk : IN std_logic;
 			reset : IN std_logic;
-			intrucao_in : IN INSTRUCAO;
-			instruction_out : OUT INSTRUCAO;
-			writeback_instruction : IN INSTRUCAO;
+			instrucao_in : IN std_logic_vector(15 downto 0);
+			instruction_out : OUT std_logic_vector(15 downto 0);
+			writeback_instruction : IN std_logic_vector(15 downto 0);
 			writeback_data : IN std_logic_vector(15 downto 0);
 			val_a : OUT std_logic_vector(15 downto 0);
 			val_b : OUT std_logic_vector(15 downto 0);
@@ -100,12 +99,12 @@ PACKAGE CPU_PACKAGE IS
 		PORT (
 			clk : IN std_logic;
 			reset : IN std_logic;
-			instrucao_in : IN INSTRUCAO;
+			instrucao_in : IN std_logic_vector(15 downto 0);
 			A : IN std_logic_vector(15 downto 0);
 			B : IN std_logic_vector(15 downto 0);
 			ula_result : OUT std_logic_vector(15 downto 0);
 			signal_extend : OUT std_logic_vector(15 downto 0);
-			instrucao_out : OUT INSTRUCAO;
+			instrucao_out : OUT std_logic_vector(15 downto 0);
 			B_out : OUT std_logic_vector(15 downto 0);
 			reg_dst : OUT std_logic_vector(3 downto 0)
 		);
@@ -115,14 +114,14 @@ PACKAGE CPU_PACKAGE IS
 		PORT (
 			clk : IN std_logic;
 			reset : IN std_logic;
-			instruction_in : IN INSTRUCAO;
+			instruction_in : IN std_logic_vector(15 downto 0);
 			ula_result_in : IN std_logic_vector(15 downto 0);
 			escrebe_data_in : IN std_logic_vector(15 downto 0);
 			reg_dst_in : IN std_logic_vector(3 downto 0);
 			mem_read_data_out : OUT std_logic_vector(15 downto 0);
 			ula_result_out : OUT std_logic_vector(15 downto 0);
 			reg_dst_out : OUT std_logic_vector(3 downto 0);
-			instruction_out : OUT INSTRUCAO
+			instruction_out : OUT std_logic_vector(15 downto 0)
 		);
 	END COMPONENT;
 
@@ -130,12 +129,12 @@ PACKAGE CPU_PACKAGE IS
 		PORT (
 			clk : IN std_logic;
 			reset : IN std_logic;
-			instruction_in : IN INSTRUCAO;
+			instruction_in : IN std_logic_vector(15 downto 0);
 			ula_result_in : IN std_logic_vector(15 downto 0);
 			mem_read_data_in : IN std_logic_vector(15 downto 0);
 			reg_dst_in : IN std_logic_vector(3 downto 0);
 			reg_dst_out : OUT std_logic_vector(3 downto 0);
-			writeback_instruction : OUT INSTRUCAO;
+			writeback_instruction : OUT std_logic_vector(15 downto 0);
 			writeback_data : OUT std_logic_vector(15 downto 0)
 		);
 	END COMPONENT;
@@ -147,8 +146,8 @@ PACKAGE CPU_PACKAGE IS
 			stall : IN STD_LOGIC;
 			pc_in : IN integer;
 			pc_out : OUT integer;
-			instr_in : IN INSTRUCAO;
-			instr_out : OUT INSTRUCAO
+			instr_in : IN std_logic_vector(15 downto 0);
+			instr_out : OUT std_logic_vector(15 downto 0)
 		);
 	END COMPONENT;
 
@@ -156,8 +155,8 @@ PACKAGE CPU_PACKAGE IS
 		PORT (
 			clock : IN STD_LOGIC;
 			stall : IN STD_LOGIC;
-			instr_in : IN INSTRUCAO;
-			instr_out : OUT INSTRUCAO;
+			instr_in : IN std_logic_vector(15 downto 0);
+			instr_out : OUT std_logic_vector(15 downto 0);
 			rs_in : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
 			rs_out : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
 			rt_in : IN STD_LOGIC_VECTOR(15 DOWNTO 0);

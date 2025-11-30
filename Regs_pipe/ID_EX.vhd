@@ -1,14 +1,13 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-USE work.instruc_type.all;
 
 entity ID_EX is
     port(
         clock : in std_logic;
         stall : in std_logic;
-        instr_in : in INSTRUCAO;
-        instr_out : out INSTRUCAO;
+        instr_in : in std_logic_vector(15 downto 0);
+        instr_out : out std_logic_vector(15 downto 0);
         rs_in : in std_logic_vector(15 downto 0);
         rs_out : out std_logic_vector(15 downto 0);
         rt_in : in std_logic_vector(15 downto 0);
@@ -25,7 +24,7 @@ entity ID_EX is
 end ID_EX;
 
 architecture logica of ID_EX is
-    signal instr_intermediario : INSTRUCAO;
+    signal instr_intermediario : std_logic_vector(15 downto 0);
     signal rs_intermediario : std_logic_vector(15 downto 0);
     signal rt_intermediario : std_logic_vector(15 downto 0);
     signal rt_add_intermediario : std_logic_vector(3 downto 0);

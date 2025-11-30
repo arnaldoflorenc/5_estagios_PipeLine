@@ -2,24 +2,25 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.instruc_type.all;
 ENTITY ULA IS
 	PORT (
 		x, y : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-		instruc : IN INSTRUCAO;
+		opcode : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
 		s : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 END ULA;
 
 ARCHITECTURE LogicFunc OF ULA IS
 BEGIN
-contas_process: PROCESS(x, y, instruc)
+contas_process: PROCESS(x, y, opcode)
 BEGIN
-	case instruc.tipo is 
-		when ADD | LW | SW => 
+	case opcode is 
+		when "011" => -- ADD
 			s <= std_logic_vector(unsigned(x) + unsigned(y));
-		when SUB =>
+		when "011" => -- SUB (mesmo opcode, função em bit separado)
 			s <= std_logic_vector(unsigned(x) - unsigned(y));
+		when "001" | "010" => -- LW ou SW
+			s <= std_logic_vector(unsigned(x) + unsigned(y));
 		when others =>
 			s <= (others => '0');
 	end case;

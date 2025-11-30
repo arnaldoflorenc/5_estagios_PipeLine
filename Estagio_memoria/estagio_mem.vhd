@@ -2,8 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.instruc_type.all;
-
 entity estagio_memoria is
     generic(
         bit_width : integer := 16
@@ -11,14 +9,14 @@ entity estagio_memoria is
     port(
         clk : in std_logic;
         reset : in std_logic;
-        instruction_in : in INSTRUCAO;
+        instruction_in : in std_logic_vector(15 downto 0);
         ula_result_in : in std_logic_vector(15 downto 0);
         escrebe_data_in : in std_logic_vector(15 downto 0);
         reg_dst_in : in std_logic_vector(3 downto 0);
         mem_read_data_out : out std_logic_vector(15 downto 0);
         ula_result_out : out std_logic_vector(15 downto 0);
         reg_dst_out : out std_logic_vector(3 downto 0);
-        instruction_out : out INSTRUCAO
+        instruction_out : out std_logic_vector(15 downto 0)
     );
 end entity estagio_memoria;
 
@@ -30,8 +28,9 @@ architecture logica of estagio_memoria is
     signal memWrite_sig : std_logic;
 begin
     -- Controle de leitura e escrita de memória
-    memRead_sig  <= '1' when instruction_in.tipo = LW else '0';
-    memWrite_sig <= '1' when instruction_in.tipo = SW else '0';
+    -- opcode está nos bits 15-13
+    memRead_sig  <= '1' when instruction_in(15 downto 13) = "001" else '0'; -- LW
+    memWrite_sig <= '1' when instruction_in(15 downto 13) = "010" else '0'; -- SW
 
     -- Instanciar o componente MEM
     mem_inst: entity work.MEM

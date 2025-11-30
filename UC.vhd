@@ -1,13 +1,12 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE WORK.CPU_PACKAGE.ALL;
-USE work.instruc_type.ALL;
 
 ENTITY UC IS
     PORT (
         clk      : IN  STD_LOGIC;
         reset    : IN  STD_LOGIC;
-        instr    : IN  INSTRUCAO;
+        instr    : IN  std_logic_vector(15 downto 0);
         reg_write : OUT STD_LOGIC;
         mem_read  : OUT STD_LOGIC;
         mem_write : OUT STD_LOGIC;
@@ -20,6 +19,7 @@ END UC;
 ARCHITECTURE logica OF UC IS
 BEGIN
     process(clk, reset)
+    variable opcode : std_logic_vector(2 downto 0);
     begin
         if reset = '1' then
             reg_write <= '0';
@@ -29,6 +29,8 @@ BEGIN
             reg_dst   <= '0';
             branch    <= '0';
         elsif rising_edge(clk) then
+            opcode := instr(15 downto 13);
+            
             -- Sinais padrão
             reg_write <= '0';
             mem_read  <= '0';
@@ -37,21 +39,21 @@ BEGIN
             reg_dst   <= '0';
             branch    <= '0';
 
-            case instr.tipo is
-                when NOP => -- NOP
-                when ADD | SUB => -- ADD/SUB
+            case opcode is
+                when "000" => -- NOP
+                when "011" => -- ADD/SUB
                     reg_write <= '1';
                     reg_dst   <= '1';
                     alu_src   <= '0';
-                when LW => -- LW
+                when "001" => -- LW
                     reg_write <= '1';
                     mem_read  <= '1';
                     alu_src   <= '1';
                     reg_dst   <= '0';
-                when SW => -- SW
+                when "010" => -- SW
                     mem_write <= '1';
                     alu_src   <= '1';
-                when J => -- JMP 
+                when "101" => -- JMP
                     branch    <= '1';
                 when others =>
                     -- tudo zero

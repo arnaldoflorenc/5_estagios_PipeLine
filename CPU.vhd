@@ -2,7 +2,6 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE WORK.CPU_PACKAGE.ALL;
 
-use work.instruc_type.all;
 use work.tipos.all;
 
 
@@ -26,18 +25,18 @@ END CPU;
 ARCHITECTURE LOGICFUNC OF CPU IS
     -- Sinais intermediários entre estágios e registradores de pipeline
     signal pc_if : integer := 0;
-    signal instr_if : INSTRUCAO;
+    signal instr_if : std_logic_vector(15 downto 0);
     signal stall_ifid : std_logic := '0';
 
     signal pc_id : integer := 0;
-    signal instr_id : INSTRUCAO;
+    signal instr_id : std_logic_vector(15 downto 0);
 
-    signal instr_idex : INSTRUCAO;
+    signal instr_idex : std_logic_vector(15 downto 0);
     signal rs_idex, rt_idex : std_logic_vector(15 downto 0);
     signal rd_add_idex, rt_add_idex, rs_add_idex : std_logic_vector(3 downto 0);
     signal signal_ext_idex : std_logic_vector(15 downto 0);
 
-    signal instr_ex : INSTRUCAO;
+    signal instr_ex : std_logic_vector(15 downto 0);
     signal rs_ex, rt_ex : std_logic_vector(15 downto 0);
     signal rd_add_ex, rt_add_ex, rs_add_ex : std_logic_vector(3 downto 0);
     signal signal_ext_ex : std_logic_vector(15 downto 0);
@@ -60,8 +59,8 @@ ARCHITECTURE LOGICFUNC OF CPU IS
     signal wb_data : std_logic_vector(15 downto 0);
 
     -- Sinais para estágios
-    signal instr_decode_out : INSTRUCAO;
-    signal writeback_instruction : INSTRUCAO;
+    signal instr_decode_out : std_logic_vector(15 downto 0);
+    signal writeback_instruction : std_logic_vector(15 downto 0);
     signal writeback_data : std_logic_vector(15 downto 0);
     signal val_a, val_b : std_logic_vector(15 downto 0);
     signal i_signal_extend : std_logic_vector(15 downto 0);
@@ -72,14 +71,14 @@ ARCHITECTURE LOGICFUNC OF CPU IS
 
     signal ula_result : std_logic_vector(15 downto 0);
     signal signal_extend_ex : std_logic_vector(15 downto 0);
-    signal instrucao_out_ex : INSTRUCAO;
+    signal instrucao_out_ex : std_logic_vector(15 downto 0);
     signal B_out_ex : std_logic_vector(15 downto 0);
     signal reg_dst_ex : std_logic_vector(3 downto 0);
 
     signal mem_read_data : std_logic_vector(15 downto 0);
     signal ula_result_mem : std_logic_vector(15 downto 0);
     signal reg_dst_mem : std_logic_vector(3 downto 0);
-    signal instruction_out_mem : INSTRUCAO;
+    signal instruction_out_mem : std_logic_vector(15 downto 0);
 
     signal reg_dst_wb : std_logic_vector(3 downto 0);
 
@@ -112,7 +111,7 @@ BEGIN
             clk => CLOCK_50,
             reset => '0',
             stall => stall_ifid,
-            intrucao_out => instr_if,
+                instrucao_out => instr_if,
             PC => open,
             mem_addr => open,
             mem_le => open,
@@ -135,7 +134,7 @@ BEGIN
         PORT MAP (
             clk => CLOCK_50,
             reset => '0',
-            intrucao_in => instr_id,
+                instrucao_in => instr_id,
             instruction_out => instr_decode_out,
             writeback_instruction => writeback_instruction,
             writeback_data => writeback_data,

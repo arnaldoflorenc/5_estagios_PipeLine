@@ -2,8 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.instruc_type.all;
-
 entity estagio_fetch is
     generic(
         ram_size : integer := 4096;
@@ -13,7 +11,7 @@ entity estagio_fetch is
         clk : in std_logic;
         reset : in std_logic;
         stall : in std_logic;
-        instrucao_out : out INSTRUCAO;
+        instrucao_out : out std_logic_vector(15 downto 0);
         PC : out std_logic_vector(15 downto 0);
         mem_addr : out std_logic_vector(15 downto 0);
         mem_le : out std_logic;
@@ -43,17 +41,16 @@ begin
         end if;
     end process PC_proccess;
 
-    MEM_process : process(clk, reset, PC_reg) variable intruct : INSTRUCAO;
+    MEM_process : process(clk, reset, PC_reg)
     begin
         if reset = '1' then
             mem_addr <= (others => '0');
             mem_le <= '0';
-            instrucao_out <= fazInstrucaoNop;
+            instrucao_out <= (others => '0');
         elsif rising_edge(clk) then
             mem_addr <= PC_reg;
             mem_le <= '1';
-            intruct := getInstrucao(mem_data_out);
-            instrucao_out <= intruct;
+            instrucao_out <= mem_data_out;
         end if;
     end process MEM_process;
 end architecture logica;

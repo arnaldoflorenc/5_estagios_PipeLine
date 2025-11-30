@@ -9,17 +9,13 @@ use componentes.Decode_descida.Decode_descida;
 use componentes.REG4.REG4;
 use componentes.tipos.all;
 
-use work.instruc_type.all;
-
-
-
 ENTITY BANCO_REGS IS
 PORT (
     read_reg, write_reg : IN STD_LOGIC;
     clock               : IN STD_LOGIC;
     reg_data            : IN std_logic_vector(15 downto 0);
     reg_in1, reg_in2, reg_in3 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-    reg_out1, reg_out2  : OUT INSTRUCAO; -- Dados lidos
+    reg_out1, reg_out2  : OUT std_logic_vector(15 downto 0);
     reg_file_out       : OUT array_reg
     );
     END BANCO_REGS;
@@ -27,10 +23,10 @@ PORT (
 
 ARCHITECTURE logica OF BANCO_REGS IS
     -- Sinais de barramento
-    signal barramentoRS, barramentoRT : std_logic_vector(15 downto 0); -- Corrigido tipo
+    signal barramentoRS, barramentoRT : std_logic_vector(15 downto 0);
     
     -- Sinais de reg
-    signal regs : array_reg; -- array_reg = array (0 to 15) of std_logic_vector(15 downto 0)
+    signal regs : array_reg;
     
     -- Sinais de controle
     signal write_enable   : STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -77,7 +73,7 @@ BEGIN
     gen_regs: for i in 0 to 15 generate
         reg_inst: entity work.REG4
             port map (
-                D      => reg_data, -- std_logic_vector(15 downto 0)
+                D      => reg_data,
                 RESET  => '0',
                 CLOCK  => clock,
                 ENABLE => write_enable(i),
@@ -104,9 +100,9 @@ BEGIN
             );
     end generate;
 
-    -- Converter barramento para INSTRUCAO na saída
-    reg_out1 <= getInstrucao(barramentoRS);
-    reg_out2 <= getInstrucao(barramentoRT);
+    -- Saídas
+    reg_out1 <= barramentoRS;
+    reg_out2 <= barramentoRT;
     reg_file_out <= regs;
 
 END logica;
